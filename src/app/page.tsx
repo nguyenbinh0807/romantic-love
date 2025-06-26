@@ -1,22 +1,21 @@
-import React from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Carousel } from "@/components/ui/carousel";
 import { Heart } from "lucide-react";
+import Image from "next/image";
 
 const loveQuotes = [
   "Tình yêu là khi em mỉm cười và thế giới như ngừng quay.",
   "Dù đi đến tận cùng thế giới, trái tim anh vẫn hướng về em.",
   "Có em bên đời, mọi khoảnh khắc đều trở nên lãng mạn.",
   "Anh không hứa đi cùng em suốt đời, nhưng anh hứa sẽ yêu em trọn kiếp.",
-  "Tình yêu không cần hoàn hảo, chỉ cần chân thật."
+  "Tình yêu không cần hoàn hảo, chỉ cần chân thật.",
 ];
 
 const memoryImages = [
   "/memories/vo.jpg",
-//   "/memories/beach_trip.jpg",
-//   "/memories/sunset_kiss.jpg",
-//   "/memories/love_lock.jpg",
-//   "/memories/anniversary.jpg"
+  // "/memories/beach_trip.jpg",
+  // "/memories/sunset_kiss.jpg",
+  // "/memories/love_lock.jpg",
+  // "/memories/anniversary.jpg"
 ];
 
 export default function RomanticLoveWebsite() {
@@ -24,7 +23,9 @@ export default function RomanticLoveWebsite() {
     <div className="min-h-screen bg-gradient-to-br from-pink-100 to-red-200 text-red-800 p-4">
       <header className="text-center py-10">
         <h1 className="text-5xl font-extrabold mb-4">Ký Ức Tình Yêu ❤️</h1>
-        <p className="text-xl italic">"Tình yêu là hành trình mà mỗi khoảnh khắc đều là một kỷ niệm vô giá"</p>
+        <p className="text-xl italic">
+          &ldquo;Tình yêu là hành trình mà mỗi khoảnh khắc đều là một kỷ niệm vô giá&rdquo;
+        </p>
       </header>
 
       <section className="max-w-3xl mx-auto">
@@ -46,9 +47,11 @@ export default function RomanticLoveWebsite() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {memoryImages.map((src, index) => (
             <div key={index} className="rounded-2xl overflow-hidden shadow-xl">
-              <img
+              <Image
                 src={src}
                 alt={`Memory ${index + 1}`}
+                width={500}
+                height={400}
                 className="w-full h-64 object-cover hover:scale-105 transition-transform duration-300"
               />
             </div>
