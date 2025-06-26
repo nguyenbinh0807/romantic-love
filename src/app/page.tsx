@@ -12,11 +12,11 @@ const loveQuotes = [
 ];
 
 const memoryImages = [
-  "/memories/first_date.jpg",
-  "/memories/beach_trip.jpg",
-  "/memories/sunset_kiss.jpg",
-  "/memories/love_lock.jpg",
-  "/memories/anniversary.jpg"
+  "/memories/vo.jpg",
+//   "/memories/beach_trip.jpg",
+//   "/memories/sunset_kiss.jpg",
+//   "/memories/love_lock.jpg",
+//   "/memories/anniversary.jpg"
 ];
 
 export default function RomanticLoveWebsite() {
