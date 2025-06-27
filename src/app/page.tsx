@@ -152,7 +152,7 @@ export default function RomanticLoveWebsite() {
 			});
 	}, []);
 
-	const handleMemoryClick = async (id) => {
+	const handleMemoryClick = async (id: string) => {
 		try {
 			const imported = await import(`@/app/memory/${id}`);
 			const MemoryComponent = imported.default;
