@@ -36,11 +36,17 @@ const memoryImages = [
 	// Add more memory image paths here
 ];
 
+// Định nghĩa kiểu dữ liệu cho message
+interface Message {
+  message: string;
+  date: string;
+}
+
 export default function RomanticLoveWebsite() {
 	const [showModal, setShowModal] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
 	const [loveMessage, setLoveMessage] = useState("");
-	const [loveMessages, setLoveMessages] = useState([]);
+	const [loveMessages, setLoveMessages] = useState<Message[]>([]);
 
 	useEffect(() => {
 		// Hiệu ứng trái tim rơi
