@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart } from "lucide-react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 
 const loveQuotes = [
 	// Lãng mạn
@@ -38,13 +37,10 @@ const memoryImages = [
 ];
 
 export default function RomanticLoveWebsite() {
-	const [selectedMemory, setSelectedMemory] = useState(null);
 	const [showModal, setShowModal] = useState(false);
 	const [modalContent, setModalContent] = useState(null);
 	const [loveMessage, setLoveMessage] = useState("");
-	const [showLoveMessage, setShowLoveMessage] = useState(false);
 	const [loveMessages, setLoveMessages] = useState([]);
-	const router = useRouter();
 
 	useEffect(() => {
 		// Hiệu ứng trái tim rơi
@@ -152,8 +148,8 @@ export default function RomanticLoveWebsite() {
 
 	const handleMemoryClick = async (id) => {
 		try {
-			const module = await import(`@/app/memory/${id}`);
-			const MemoryComponent = module.default;
+			const imported = await import(`@/app/memory/${id}`);
+			const MemoryComponent = imported.default;
 			if (MemoryComponent) {
 				setModalContent(<MemoryComponent />);
 				setShowModal(true);
@@ -287,7 +283,6 @@ export default function RomanticLoveWebsite() {
 							className="px-6 py-2 bg-pink-500 text-white rounded-lg shadow-lg hover:bg-pink-600 transition-all"
 							style={{ minWidth: 120 }}
 							onClick={async () => {
-								setShowLoveMessage(true);
 								// Gửi lời yêu thương lên server (API route)
 								await fetch("/api/love-messages", {
 									method: "POST",
