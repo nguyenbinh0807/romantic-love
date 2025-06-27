@@ -4,14 +4,20 @@ import path from "path";
 
 const filePath = path.join(process.cwd(), "love-messages.json");
 
+// Định nghĩa kiểu dữ liệu cho message
+interface Message {
+  message: string;
+  date: string;
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const body = await req.json();
-    let messages: any[] = [];
+    const body: Message = await req.json();
+    let messages: Message[] = [];
     try {
       const data = await fs.readFile(filePath, "utf-8");
-      messages = JSON.parse(data);
-    } catch (e) {
+      messages = JSON.parse(data) as Message[];
+    } catch {
       // file chưa tồn tại
       messages = [];
     }
@@ -26,9 +32,9 @@ export async function POST(req: NextRequest) {
 export async function GET() {
   try {
     const data = await fs.readFile(filePath, "utf-8");
-    const messages = JSON.parse(data);
+    const messages: Message[] = JSON.parse(data);
     return NextResponse.json(messages);
-  } catch (e) {
+  } catch {
     return NextResponse.json([]);
   }
 }
@@ -39,11 +45,11 @@ export async function DELETE(req: NextRequest) {
   if (!date) return NextResponse.json({ success: false, error: "Missing date" }, { status: 400 });
   try {
     const data = await fs.readFile(filePath, "utf-8");
-    let messages = JSON.parse(data);
-    messages = messages.filter((msg: any) => msg.date !== date);
+    let messages: Message[] = JSON.parse(data);
+    messages = messages.filter((msg: Message) => msg.date !== date);
     await fs.writeFile(filePath, JSON.stringify(messages, null, 2), "utf-8");
     return NextResponse.json({ success: true });
-  } catch (e) {
-    return NextResponse.json({ success: false, error: String(e) }, { status: 500 });
+  } catch (error) {
+    return NextResponse.json({ success: false, error: String(error) }, { status: 500 });
   }
 }
