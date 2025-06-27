@@ -285,7 +285,7 @@ export default function RomanticLoveWebsite() {
 				<div className="text-center flex flex-col items-center">
 					<textarea
 						className="w-full max-w-lg p-4 rounded-lg border border-pink-300 shadow-md focus:outline-none focus:ring-2 focus:ring-pink-500"
-						rows="4"
+						rows={4}
 						placeholder="Nhập lời yêu thương của bạn..."
 						value={loveMessage}
 						onChange={(e) => setLoveMessage(e.target.value)}
