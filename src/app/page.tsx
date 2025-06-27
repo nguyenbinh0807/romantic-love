@@ -1,37 +1,43 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Heart } from "lucide-react";
 import Image from "next/image";
 
-const loveQuotes = [
+// Định nghĩa kiểu dữ liệu cho loveQuotes
+interface LoveQuote {
+  type: "romantic" | "apology" | "promise";
+  message: string;
+}
+
+const loveQuotes: LoveQuote[] = [
 	// Lãng mạn
 	{ type: "romantic", message: "Tình yêu là khi em mỉm cười và thế giới như ngừng quay." },
 	{ type: "romantic", message: "Dù đi đến tận cùng thế giới, trái tim anh vẫn hướng về em." },
 	{ type: "romantic", message: "Có em bên đời, mọi khoảnh khắc đều trở nên lãng mạn." },
 	{ type: "romantic", message: "Anh không hứa đi cùng em suốt đời, nhưng anh hứa sẽ yêu em trọn kiếp." },
-	// { type: "romantic", message: "Tình yêu không cần hoàn hảo, chỉ cần chân thật." },
-	// { type: "romantic", message: "Chỉ cần em ở bên, mọi khó khăn đều trở nên nhẹ nhàng." },
-	// { type: "romantic", message: "Em là điều tuyệt vời nhất mà cuộc đời đã ban tặng cho anh." },
-	// { type: "romantic", message: "Mỗi ngày bên em là một ngày hạnh phúc." },
-	// { type: "romantic", message: "Anh yêu em không phải vì em là ai, mà vì anh là ai khi ở bên em." },
-	// { type: "romantic", message: "Dù thế giới có đổi thay, tình cảm anh dành cho em vẫn mãi vẹn nguyên." },
+	{ type: "romantic", message: "Tình yêu không cần hoàn hảo, chỉ cần chân thật." },
+	{ type: "romantic", message: "Chỉ cần em ở bên, mọi khó khăn đều trở nên nhẹ nhàng." },
+	{ type: "romantic", message: "Em là điều tuyệt vời nhất mà cuộc đời đã ban tặng cho anh." },
+	{ type: "romantic", message: "Mỗi ngày bên em là một ngày hạnh phúc." },
+	{ type: "romantic", message: "Anh yêu em không phải vì em là ai, mà vì anh là ai khi ở bên em." },
+	{ type: "romantic", message: "Dù thế giới có đổi thay, tình cảm anh dành cho em vẫn mãi vẹn nguyên." },
 	// Xin lỗi
-	// { type: "apology", message: "Anh xin lỗi vì đã làm em buồn, anh sẽ cố gắng để không lặp lại điều đó." },
-	// { type: "apology", message: "Anh biết mình đã sai, mong em tha thứ cho sự vô tâm của anh." },
+	{ type: "apology", message: "Anh xin lỗi vì đã làm em buồn, anh sẽ cố gắng để không lặp lại điều đó." },
+	{ type: "apology", message: "Anh biết mình đã sai, mong em tha thứ cho sự vô tâm của anh." },
 	{ type: "apology", message: "Xin lỗi vì những lúc anh chưa đủ quan tâm, anh sẽ bù đắp cho em thật nhiều." },
-	// { type: "apology", message: "Anh hối hận vì đã làm tổn thương em, cho anh một cơ hội để sửa sai nhé." },
+	{ type: "apology", message: "Anh hối hận vì đã làm tổn thương em, cho anh một cơ hội để sửa sai nhé." },
 	{ type: "apology", message: "Anh xin lỗi vì những lời nói khiến em đau lòng, anh sẽ học cách yêu thương em nhiều hơn." },
 	// Lời hứa
 	{ type: "promise", message: "Anh hứa sẽ luôn lắng nghe và thấu hiểu em." },
 	{ type: "promise", message: "Anh hứa dù có chuyện gì xảy ra, anh cũng sẽ nắm tay em không buông." },
-	// { type: "promise", message: "Anh hứa sẽ luôn là bờ vai vững chắc cho em tựa vào." },
-	// { type: "promise", message: "Anh hứa sẽ cùng em vượt qua mọi khó khăn trong cuộc sống." },
-	// { type: "promise", message: "Anh hứa sẽ yêu em bằng cả trái tim, hôm nay và mãi mãi." },
+	{ type: "promise", message: "Anh hứa sẽ luôn là bờ vai vững chắc cho em tựa vào." },
+	{ type: "promise", message: "Anh hứa sẽ cùng em vượt qua mọi khó khăn trong cuộc sống." },
+	{ type: "promise", message: "Anh hứa sẽ yêu em bằng cả trái tim, hôm nay và mãi mãi." },
 ];
 
-const memoryImages = [
+const memoryImages: string[] = [
 	"/memories/binhba/main_binhba.jpg",
 	// Add more memory image paths here
 ];
@@ -43,9 +49,9 @@ interface Message {
 }
 
 export default function RomanticLoveWebsite() {
-	const [showModal, setShowModal] = useState(false);
-	const [modalContent, setModalContent] = useState(null);
-	const [loveMessage, setLoveMessage] = useState("");
+	const [showModal, setShowModal] = useState<boolean>(false);
+	const [modalContent, setModalContent] = useState<React.ReactNode>(null);
+	const [loveMessage, setLoveMessage] = useState<string>("");
 	const [loveMessages, setLoveMessages] = useState<Message[]>([]);
 
 	useEffect(() => {
@@ -147,7 +153,7 @@ export default function RomanticLoveWebsite() {
 	useEffect(() => {
 		fetch("/api/love-messages")
 			.then(res => res.json())
-			.then(data => {
+			.then((data: Message[]) => {
 				if (Array.isArray(data)) setLoveMessages(data);
 			});
 	}, []);
